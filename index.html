@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frutas Casao - Tu frutería en Zaragoza</title>
+    <meta name="description" content="Frutas Casao en Av. de Juan Carlos I, 8, Zaragoza. Compra en tienda, recogida y a domicilio. Fruta y verdura fresca de la mejor calidad.">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-green': '#4ade80',
+                        'brand-green-dark': '#166534',
+                        'brand-orange': '#f97316',
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Styles to complement Tailwind */
+        body { font-family: 'Poppins', sans-serif; }
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        /* Hide scrollbar for clean horizontal scrolling */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .page-section { display: none; animation: fadeIn 0.3s ease-in-out; }
+        .page-section.active { display: block; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased flex flex-col min-h-screen">
+
+    <!-- Top Bar -->
+    <div class="bg-brand-green-dark text-white text-sm py-2 px-4">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
+            <div class="mb-1 sm:mb-0">
+                <i class="fas fa-map-marker-alt mr-2 text-brand-green"></i> Av. de Juan Carlos I, 8, Delicias, 50009 Zaragoza
+            </div>
+            <div class="flex items-center space-x-4">
+                <span><i class="fas fa-clock mr-2 text-brand-green"></i> L-S: 09:00-14:00, 17:00-20:00</span>
+                <a href="tel:976756047" class="hover:text-brand-green transition"><i class="fas fa-phone mr-1"></i> 976 75 60 47</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20">
+                <div class="flex items-center cursor-pointer" onclick="navigate('home')">
+                    <i class="fas fa-apple-whole text-brand-orange text-3xl mr-3"></i>
+                    <span class="font-bold text-2xl tracking-tight text-brand-green-dark">FRUTAS CASAO</span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <button onclick="navigate('home')" class="text-gray-600 hover:text-brand-green-dark font-medium transition">Inicio</button>
+                    <button onclick="scrollToSection('servicios')" class="text-gray-600 hover:text-brand-green-dark font-medium transition">Servicios</button>
+                    <button onclick="scrollToSection('contacto')" class="text-gray-600 hover:text-brand-green-dark font-medium transition">Contacto</button>
+                    <a href="https://m.facebook.com" target="_blank" class="text-blue-600 hover:text-blue-800 text-xl"><i class="fab fa-facebook"></i></a>
+                    <a href="tel:976756047" class="bg-brand-orange text-white px-5 py-2 rounded-full font-medium hover:bg-orange-600 transition shadow-lg transform hover:-translate-y-0.5">Llamar Ahora</a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-brand-green-dark focus:outline-none p-2">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 px-4 py-4 space-y-4 shadow-lg absolute w-full left-0">
+            <button onclick="navigate('home'); toggleMobileMenu()" class="block w-full text-left text-gray-700 font-medium hover:text-brand-green-dark">Inicio</button>
+            <button onclick="scrollToSection('servicios'); toggleMobileMenu()" class="block w-full text-left text-gray-700 font-medium hover:text-brand-green-dark">Servicios</button>
+            <button onclick="scrollToSection('contacto'); toggleMobileMenu()" class="block w-full text-left text-gray-700 font-medium hover:text-brand-green-dark">Contacto</button>
+            <a href="https://m.facebook.com" target="_blank" class="block text-blue-600 font-medium"><i class="fab fa-facebook mr-2"></i> Facebook</a>
+            <a href="tel:976756047" class="block text-center bg-brand-orange text-white px-5 py-3 rounded-lg font-medium hover:bg-orange-600 w-full"><i class="fas fa-phone mr-2"></i> 976 75 60 47</a>
+        </div>
+    </nav>
+
+    <!-- ========================================== -->
+    <!-- MAIN CONTENT (HOME PAGE)                   -->
+    <!-- ========================================== -->
+    <main id="home" class="page-section active flex-grow">
+        
+        <!-- Hero Section -->
+        <section class="hero-bg h-[500px] flex items-center justify-center text-center px-4 relative">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+            <div class="relative z-10 max-w-3xl">
+                <div class="inline-flex items-center bg-white/20 backdrop-blur-sm rounded-full px-4 py-1.5 mb-6 border border-white/30 text-white shadow-lg">
+                    <div class="flex text-yellow-400 text-sm mr-2">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <span class="font-medium">4,3 (111 reseñas)</span>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">Frescura y Calidad Directo a tu Mesa</h1>
+                <p class="text-lg md:text-xl text-gray-200 mb-8 font-light">Tu frutería de confianza en el barrio de las Delicias, Zaragoza. Selección diaria de los mejores productos de la huerta.</p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button onclick="scrollToSection('contacto')" class="bg-brand-green hover:bg-green-500 text-brand-green-dark font-bold py-3 px-8 rounded-full transition shadow-lg text-lg">Visítanos</button>
+                    <a href="tel:976756047" class="bg-white/10 hover:bg-white/20 backdrop-blur-md border-2 border-white text-white font-bold py-3 px-8 rounded-full transition shadow-lg text-lg">Hacer pedido</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Features -->
+        <section id="servicios" class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">¿Cómo quieres comprar hoy?</h2>
+                    <div class="w-20 h-1 bg-brand-orange mx-auto rounded"></div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Feature 1 -->
+                    <div class="bg-gray-50 rounded-2xl p-8 text-center border border-gray-100 shadow-sm hover:shadow-md transition group">
+                        <div class="w-16 h-16 bg-brand-green/20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-store text-2xl text-brand-green-dark"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3 flex justify-center items-center"><i class="fas fa-check text-brand-green mr-2 text-sm"></i> Compra en tienda</h3>
+                        <p class="text-gray-600">Ven a saludarnos y elige tú mismo las mejores piezas. Te asesoramos personalmente.</p>
+                    </div>
+                    <!-- Feature 2 -->
+                    <div class="bg-gray-50 rounded-2xl p-8 text-center border border-gray-100 shadow-sm hover:shadow-md transition group">
+                        <div class="w-16 h-16 bg-brand-green/20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-shopping-bag text-2xl text-brand-green-dark"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3 flex justify-center items-center"><i class="fas fa-check text-brand-green mr-2 text-sm"></i> Recogida en tienda</h3>
+                        <p class="text-gray-600">Llámanos, haznos tu pedido y te lo preparamos para que pases a recogerlo sin esperas.</p>
+                    </div>
+                    <!-- Feature 3 -->
+                    <div class="bg-gray-50 rounded-2xl p-8 text-center border border-gray-100 shadow-sm hover:shadow-md transition group">
+                        <div class="w-16 h-16 bg-brand-orange/20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-motorcycle text-2xl text-brand-orange"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3 flex justify-center items-center"><i class="fas fa-check text-brand-green mr-2 text-sm"></i> A domicilio</h3>
+                        <p class="text-gray-600">Llevamos la frescura a tu puerta. Haz tu encargo por teléfono y nosotros nos encargamos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fresh Gallery (Simulated Products) -->
+        <section class="py-16 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">Lo mejor de la temporada</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">Seleccionamos cuidadosamente cada pieza en origen para garantizar el máximo sabor y frescura en tu mesa.</p>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 relative group">
+                        <img src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&w=500&q=80" alt="Frutas frescas" class="w-full h-48 object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
+                            <span class="text-white font-bold p-4">Fruta de temporada</span>
+                        </div>
+                    </div>
+                    <div class="rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 relative group">
+                        <img src="https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?auto=format&fit=crop&w=500&q=80" alt="Verduras" class="w-full h-48 object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
+                            <span class="text-white font-bold p-4">Verdura fresca</span>
+                        </div>
+                    </div>
+                    <div class="rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 relative group">
+                        <img src="https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?auto=format&fit=crop&w=500&q=80" alt="Cítricos" class="w-full h-48 object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
+                            <span class="text-white font-bold p-4">Cítricos y zumos</span>
+                        </div>
+                    </div>
+                    <div class="rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 relative group">
+                        <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=500&q=80" alt="Especialidades" class="w-full h-48 object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
+                            <span class="text-white font-bold p-4">Especialidades</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Location & Contact -->
+        <section id="contacto" class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
+                    <div class="grid grid-cols-1 lg:grid-cols-2">
+                        
+                        <!-- Contact Info -->
+                        <div class="p-10 lg:p-14 flex flex-col justify-center">
+                            <h2 class="text-3xl font-bold text-gray-800 mb-6">Dónde encontrarnos</h2>
+                            
+                            <ul class="space-y-6 mb-8">
+                                <li class="flex items-start">
+                                    <div class="bg-brand-green/10 p-3 rounded-full mr-4 text-brand-green-dark">
+                                        <i class="fas fa-map-marker-alt text-xl w-5 text-center"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-gray-800">Dirección</p>
+                                        <p class="text-gray-600">Av. de Juan Carlos I, 8<br>Delicias, 50009 Zaragoza</p>
+                                        <p class="text-xs text-gray-400 mt-1">Plus Code: J3VQ+MJ Zaragoza</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="bg-brand-green/10 p-3 rounded-full mr-4 text-brand-green-dark">
+                                        <i class="fas fa-phone text-xl w-5 text-center"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-gray-800">Teléfono</p>
+                                        <p class="text-brand-green-dark text-xl font-medium"><a href="tel:976756047">976 75 60 47</a></p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <div class="bg-brand-green/10 p-3 rounded-full mr-4 text-brand-green-dark">
+                                        <i class="fas fa-clock text-xl w-5 text-center"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-gray-800">Horario</p>
+                                        <p class="text-gray-600">Cierre: 14:00 · Próxima apertura: 17:00</p>
+                                        <p class="text-sm text-brand-orange mt-1 italic"><i class="fas fa-info-circle"></i> El horario puede variar en Lunes de Pascua y festivos.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                            
+                            <div class="flex space-x-4">
+                                <a href="https://maps.google.com/maps?q=Av.+de+Juan+Carlos+I,+8,+Zaragoza" target="_blank" class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-3 px-6 rounded-lg transition flex items-center">
+                                    <i class="fas fa-directions mr-2 text-brand-green-dark"></i> Cómo llegar
+                                </a>
+                                <button onclick="navigator.clipboard.writeText('Av. de Juan Carlos I, 8, 50009 Zaragoza'); alert('Dirección copiada');" class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-3 px-4 rounded-lg transition" title="Copiar dirección">
+                                    <i class="far fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Map -->
+                        <div class="h-96 lg:h-auto min-h-[400px]">
+                            <iframe 
+                                src="https://maps.google.com/maps?q=Av.%20de%20Juan%20Carlos%20I,%208,%20Zaragoza&t=&z=16&ie=UTF8&iwloc=&output=embed" 
+                                width="100%" 
+                                height="100%" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ========================================== -->
+    <!-- LEGAL PAGES (Hidden by default)            -->
+    <!-- ========================================== -->
+
+    <!-- AVISO LEGAL -->
+    <main id="aviso-legal" class="page-section flex-grow py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto bg-white my-8 rounded-2xl shadow-sm border border-gray-100">
+        <button onclick="navigate('home')" class="text-brand-green-dark hover:text-brand-green mb-6 font-medium flex items-center">
+            <i class="fas fa-arrow-left mr-2"></i> Volver a inicio
+        </button>
+        <h1 class="text-3xl font-bold text-gray-900 mb-8 pb-4 border-b border-gray-200">Aviso Legal</h1>
+        
+        <div class="space-y-6 text-gray-700 leading-relaxed">
+            <section>
+                <h2 class="text-xl font-semibold text-gray-800 mb-3">1. Datos identificativos</h2>
+                <p>En cumplimiento con el deber de información recogido en artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y del Comercio Electrónico, a continuación se reflejan los siguientes datos: la empresa titular de dominio web es Frutas Casao (en adelante "El Titular"), con domicilio a estos efectos en Av. de Juan Carlos I, 8, Delicias, 50009 Zaragoza. Correo electrónico de contacto o teléfono: 976 75 60 47.</p>
+            </section>
+            
+            <section>
+                <h2 class="text-xl font-semibold text-gray-800 mb-3">2. Usuarios</h2>
+                <p>El acceso y/o uso de este portal de Frutas Casao atribuye la condición de USUARIO, que acepta, desde dicho acceso y/o uso, las Condiciones Generales de Uso aquí reflejadas. Las citadas Condiciones serán de aplicación independientemente de las Condiciones Generales de Contratación que en su caso resulten de obligado cumplimiento.</p>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-gray-800 mb-3">3. Uso del portal</h2>
+                <p>La página web proporciona el acceso a multitud de informaciones, servicios, programas o datos (en adelante, "los contenidos") en Internet pertenecientes a Frutas Casao o a sus licenciantes a los que el USUARIO pueda tener acceso. El USUARIO asume la responsabilidad del uso del portal.</p>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-gray-800 mb-3">4. Propiedad intelectual e industrial</h2>
+                <p>Frutas Casao por sí o como cesionaria, es titular de todos los derechos de propiedad intelectual e industrial de su página web, así como de los elementos contenidos en la misma (a título enunciativo, imágenes, sonido, audio, vídeo, software o textos; marcas o logotipos, combinaciones de colores, estructura y diseño, selección de materiales usados, etc.). Todos los derechos reservados.</p>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-gray-800 mb-3">5. Exclusión de garantías y responsabilidad</h2>
+                <p>Frutas Casao no se hace responsable, en ningún caso, de los daños y perjuicios de cualquier naturaleza que pudieran ocasionar, a título enunciativo: errores u omisiones en los contenidos, falta de disponibilidad del portal o la transmisión de virus o programas maliciosos o lesivos en los contenidos, a pesar de haber adoptado todas las medidas tecnológicas necesarias para evitarlo.</p>
+            </section>
+        </div>
+    </main>
+
+    <!-- POLÍTICA DE PRIVACIDAD -->
+    <main id="privacidad" class="page-section flex-grow py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto bg-white my-8 rounded-2xl shadow-sm border border-gray-100">
+        <button onclick="navigate('home')" class="text-brand-green-dark hover:text-brand-green mb-6 font-medium flex items-center">
+            <i class="fas fa-arrow-left mr-2"></i> Volver a inicio
+        </button>
+        <h1 class="text-3xl font-bold text-gray-900 mb-8 pb-4 border-b border-gray-200">Política de Privacidad</h1>
+        
+        <div class="space-y-6 text-gray-700 leading-relaxed">
+            <p>La presente Política de Privacidad establece los términos en que Frutas Casao usa y protege la información que es proporcionada por sus usuarios al momento de utilizar su sitio web o realizar pedidos telefónicos.</p>
+            
+            <section>
+                <h2 class="text-xl font-semibold text-gray-800 mb-3">1. Información que es recogida</h2>
+                <p>Nuestro sitio web o sistema de pedidos puede recoger información personal como: Nombre, información de contacto como su dirección de correo electrónico, teléfono y dirección postal de entrega (para pedidos a domicilio).</p>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-gray-800 mb-3">2. Uso de la información recogida</h2>
+                <p>Frutas Casao emplea la información con el fin de proporcionar el mejor servicio posible, particularmente para mantener un registro de usuarios, de pedidos en caso que aplique, y mejorar nuestros productos y servicios. La legitimación para el tratamiento de sus datos es la ejecución de un contrato o pedido y su consentimiento explícito.</p>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-gray-800 mb-3">3. Conservación de datos</h2>
+                <p>Los datos personales proporcionados se conservarán mientras se mantenga la relación comercial, o hasta que usted solicite su supresión y durante el plazo por el cual pudieran derivarse responsabilidades legales por los servicios prestados.</p>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-gray-800 mb-3">4. Derechos de los usuarios</h2>
+                <p>Cualquier persona tiene derecho a obtener confirmación sobre si en Frutas Casao estamos tratando datos personales que les conciernan, o no. Las personas interesadas tienen derecho a:</p>
+                <ul class="list-disc pl-6 mt-2 space-y-1">
+                    <li>Solicitar el acceso a los datos personales relativos al interesado.</li>
+                    <li>Solicitar su rectificación o supresión.</li>
+                    <li>Solicitar la limitación de su tratamiento.</li>
+                    <li>Oponerse al tratamiento.</li>
+                    <li>Solicitar la portabilidad de los datos.</li>
+                </ul>
+                <p class="mt-2">Puede ejercer estos derechos dirigiendo una comunicación al establecimiento físico en Av. de Juan Carlos I, 8, Zaragoza o vía telefónica.</p>
+            </section>
+        </div>
+    </main>
+
+    <!-- POLÍTICA DE COOKIES -->
+    <main id="cookies" class="page-section flex-grow py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto bg-white my-8 rounded-2xl shadow-sm border border-gray-100">
+        <button onclick="navigate('home')" class="text-brand-green-dark hover:text-brand-green mb-6 font-medium flex items-center">
+            <i class="fas fa-arrow-left mr-2"></i> Volver a inicio
+        </button>
+        <h1 class="text-3xl font-bold text-gray-900 mb-8 pb-4 border-b border-gray-200">Política de Cookies</h1>
+        
+        <div class="space-y-6 text-gray-700 leading-relaxed">
+            <p>En la web de Frutas Casao utilizamos cookies para facilitar la relación de los visitantes con nuestro contenido y para permitir elaborar estadísticas sobre las visitantes que recibimos.</p>
+            
+            <section>
+                <h2 class="text-xl font-semibold text-gray-800 mb-3">¿Qué son las cookies?</h2>
+                <p>Una cookie es un pequeño archivo de texto que un sitio web guarda en su ordenador o dispositivo móvil cuando usted visita el sitio. Permite al sitio web recordar sus acciones y preferencias (como el inicio de sesión, el idioma, el tamaño de letra y otras preferencias de visualización) durante un período de tiempo.</p>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-gray-800 mb-3">¿Qué tipos de cookies utiliza esta página web?</h2>
+                <ul class="list-disc pl-6 mt-2 space-y-3">
+                    <li><strong>Cookies técnicas:</strong> Son aquellas que permiten al usuario la navegación a través de una página web y la utilización de las diferentes opciones o servicios que en ella existan (ej. guardar la aceptación del propio banner de cookies).</li>
+                    <li><strong>Cookies de análisis:</strong> Son aquellas que bien tratadas por nosotros o por terceros (Google Analytics), nos permiten cuantificar el número de usuarios y así realizar la medición y análisis estadístico de la utilización que hacen los usuarios del servicio ofertado.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-semibold text-gray-800 mb-3">Revocación y eliminación de cookies</h2>
+                <p>Puedes permitir, bloquear o eliminar las cookies instaladas en tu equipo mediante la configuración de las opciones del navegador instalado en tu ordenador. En la función Ayuda de la mayoría de los navegadores se indica cómo configurar su navegador para que no acepte cookies.</p>
+            </section>
+        </div>
+    </main>
+
+    <!-- ========================================== -->
+    <!-- FOOTER                                     -->
+    <!-- ========================================== -->
+    <footer class="bg-gray-900 text-gray-300 py-12 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 text-center md:text-left">
+                <!-- Brand -->
+                <div>
+                    <h3 class="text-2xl font-bold text-white mb-4"><i class="fas fa-apple-whole text-brand-orange mr-2"></i> Frutas Casao</h3>
+                    <p class="text-gray-400 mb-4">Selección diaria de la mejor fruta y verdura de Zaragoza. Calidad y frescura garantizada.</p>
+                    <div class="flex justify-center md:justify-start space-x-4">
+                        <a href="https://m.facebook.com" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-4">Enlaces Rápidos</h4>
+                    <ul class="space-y-2">
+                        <li><button onclick="navigate('home'); setTimeout(()=>scrollToSection('servicios'), 100)" class="hover:text-brand-green transition">Servicios</button></li>
+                        <li><button onclick="navigate('home'); setTimeout(()=>scrollToSection('contacto'), 100)" class="hover:text-brand-green transition">Dónde estamos</button></li>
+                        <li><a href="tel:976756047" class="hover:text-brand-green transition">Hacer pedido telefónico</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Legal -->
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-4">Información Legal</h4>
+                    <ul class="space-y-2">
+                        <li><button onclick="navigate('aviso-legal')" class="hover:text-brand-green transition">Aviso Legal</button></li>
+                        <li><button onclick="navigate('privacidad')" class="hover:text-brand-green transition">Política de Privacidad</button></li>
+                        <li><button onclick="navigate('cookies')" class="hover:text-brand-green transition">Política de Cookies</button></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+                <p>&copy; 2026 Frutas Casao. Todos los derechos reservados.</p>
+                <p class="mt-2 md:mt-0">Desarrollado para <i class="fab fa-github"></i> GitHub Pages</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================== -->
+    <!-- COOKIE BANNER                              -->
+    <!-- ========================================== -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 shadow-[0_-10px_20px_rgba(0,0,0,0.1)] z-50 transform translate-y-full transition-transform duration-500 ease-in-out">
+        <div class="max-w-7xl mx-auto p-4 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="text-sm text-gray-600 flex-grow text-center sm:text-left">
+                Utilizamos cookies propias y de terceros para mejorar la experiencia de navegación, y ofrecer contenidos de interés. Al continuar con la navegación entendemos que se acepta nuestra <button onclick="navigate('cookies')" class="text-brand-green-dark underline font-medium">Política de Cookies</button>.
+            </div>
+            <div class="flex shrink-0 gap-3">
+                <button id="accept-cookies" class="bg-brand-green-dark hover:bg-green-800 text-white px-6 py-2 rounded-lg font-medium transition whitespace-nowrap">
+                    Aceptar todas
+                </button>
+                <button id="reject-cookies" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg font-medium transition whitespace-nowrap">
+                    Rechazar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT APP LOGIC                       -->
+    <!-- ========================================== -->
+    <script>
+        // --- 1. SPA Navigation Logic ---
+        function navigate(pageId) {
+            // Hide all sections
+            document.querySelectorAll('.page-section').forEach(el => {
+                el.classList.remove('active');
+            });
+            // Show target section
+            document.getElementById(pageId).classList.add('active');
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // --- 2. Smooth Scrolling for internal anchor links within Home ---
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                // Offset for fixed header
+                const headerOffset = 80; 
+                const elementPosition = section.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+            }
+        }
+
+        // --- 3. Mobile Menu Toggle ---
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('hidden');
+        }
+        
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+
+        // --- 4. Cookie Banner Logic ---
+        document.addEventListener("DOMContentLoaded", () => {
+            const cookieBanner = document.getElementById('cookie-banner');
+            const acceptBtn = document.getElementById('accept-cookies');
+            const rejectBtn = document.getElementById('reject-cookies');
+
+            // Check local storage
+            if (!localStorage.getItem('cookies_accepted')) {
+                // Show banner after short delay
+                setTimeout(() => {
+                    cookieBanner.classList.remove('translate-y-full');
+                }, 1000);
+            }
+
+            const hideBanner = () => {
+                cookieBanner.classList.add('translate-y-full');
+            };
+
+            acceptBtn.addEventListener('click', () => {
+                localStorage.setItem('cookies_accepted', 'true');
+                hideBanner();
+            });
+
+            rejectBtn.addEventListener('click', () => {
+                localStorage.setItem('cookies_accepted', 'false');
+                hideBanner();
+            });
+        });
+    </script>
+</body>
+</html>
