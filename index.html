@@ -7,7 +7,7 @@
     <meta name="description" content="Frutas Casao en Av. de Juan Carlos I, 8, Zaragoza. Compra en tienda, recogida y a domicilio. Fruta y verdura fresca de la mejor calidad.">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome for Icons -->
+    <!-- FontAwesome para Iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -20,6 +20,7 @@
                         'brand-green': '#4ade80',
                         'brand-green-dark': '#166534',
                         'brand-orange': '#f97316',
+                        'brand-facebook': '#1877F2',
                     },
                     fontFamily: {
                         sans: ['Poppins', 'sans-serif'],
@@ -29,16 +30,12 @@
         }
     </script>
     <style>
-        /* Custom Styles to complement Tailwind */
         body { font-family: 'Poppins', sans-serif; }
         .hero-bg {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=1920&q=80');
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('https://scontent-mad1-1.xx.fbcdn.net/v/t39.30808-6/486550539_1290081552529408_4855742759544442902_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=103&ccb=1-7&_nc_sid=7b2446&_nc_ohc=2WnAjW1MCLAQ7kNvwEVB5YJ&_nc_oc=Adp0yoJaFcdapZ3hS4kNmef9P3L8Qf1tGPIKbpoxeqBpkG5mUT2zlrwOHGRWwxGkwA6g5KNDYm0TO6biaLkMVriS&_nc_zt=23&_nc_ht=scontent-mad1-1.xx&_nc_gid=K7AdH0pLrbEGeTSRX9Y5JQ&_nc_ss=7a3a8&oh=00_Af0_9FfIAAbt-UOn2MB5zIj_gZN5X3oN6kxmSXeUrLAmRA&oe=69DCA3BB');
             background-size: cover;
             background-position: center;
         }
-        /* Hide scrollbar for clean horizontal scrolling */
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
         .page-section { display: none; animation: fadeIn 0.3s ease-in-out; }
         .page-section.active { display: block; }
@@ -47,42 +44,81 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        .fab-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 100;
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .fab-options {
+            display: none;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+            animation: slideUp 0.3s ease-out forwards;
+        }
+        .fab-options.active { display: flex; }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 antialiased flex flex-col min-h-screen">
 
-    <!-- Top Bar -->
+    <!-- Botón flotante de contacto -->
+    <div class="fab-container">
+        <button id="main-fab" class="bg-brand-green-dark text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform focus:outline-none">
+            <i class="fas fa-phone-alt text-xl"></i>
+        </button>
+        <div id="fab-options" class="fab-options">
+            <a href="tel:605977250" class="bg-white text-brand-green-dark px-4 py-2 rounded-lg shadow-lg border border-gray-100 font-semibold flex items-center whitespace-nowrap">
+                <i class="fas fa-mobile-alt mr-2 text-brand-orange"></i> 605 977 250
+            </a>
+            <a href="tel:976756047" class="bg-white text-brand-green-dark px-4 py-2 rounded-lg shadow-lg border border-gray-100 font-semibold flex items-center whitespace-nowrap">
+                <i class="fas fa-phone mr-2 text-brand-orange"></i> 976 75 60 47
+            </a>
+        </div>
+    </div>
+
+    <!-- Barra superior -->
     <div class="bg-brand-green-dark text-white text-sm py-2 px-4">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
             <div class="mb-1 sm:mb-0">
                 <i class="fas fa-map-marker-alt mr-2 text-brand-green"></i> Av. de Juan Carlos I, 8, Delicias, 50009 Zaragoza
             </div>
             <div class="flex items-center space-x-4">
-                <span><i class="fas fa-clock mr-2 text-brand-green"></i> L-S: 09:00-14:00, 17:00-20:00</span>
-                <a href="tel:976756047" class="hover:text-brand-green transition"><i class="fas fa-phone mr-1"></i> 976 75 60 47</a>
+                <span class="hidden lg:inline"><i class="fas fa-clock mr-2 text-brand-green"></i> L-V: 9:00-14:00, 17:00-20:30 | Sáb: 9:00-14:00</span>
+                <div class="flex items-center gap-3">
+                    <a href="tel:976756047" class="hover:text-brand-green transition font-medium"><i class="fas fa-phone mr-1"></i> 976 75 60 47</a>
+                    <a href="tel:605977250" class="hover:text-brand-green transition font-medium"><i class="fas fa-mobile-alt mr-1"></i> 605 977 250</a>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Navigation -->
+    <!-- Navegación -->
     <nav class="bg-white shadow-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20">
                 <div class="flex items-center cursor-pointer" onclick="navigate('home')">
                     <i class="fas fa-apple-whole text-brand-orange text-3xl mr-3"></i>
-                    <span class="font-bold text-2xl tracking-tight text-brand-green-dark">FRUTAS CASAO</span>
+                    <span class="font-bold text-2xl tracking-tight text-brand-green-dark uppercase">Frutas Casao</span>
                 </div>
                 
-                <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center space-x-8">
                     <button onclick="navigate('home')" class="text-gray-600 hover:text-brand-green-dark font-medium transition">Inicio</button>
                     <button onclick="scrollToSection('servicios')" class="text-gray-600 hover:text-brand-green-dark font-medium transition">Servicios</button>
+                    <button onclick="navigate('galeria')" class="text-gray-600 hover:text-brand-green-dark font-medium transition">Galería</button>
                     <button onclick="scrollToSection('contacto')" class="text-gray-600 hover:text-brand-green-dark font-medium transition">Contacto</button>
-                    <a href="https://m.facebook.com" target="_blank" class="text-blue-600 hover:text-blue-800 text-xl"><i class="fab fa-facebook"></i></a>
-                    <a href="tel:976756047" class="bg-brand-orange text-white px-5 py-2 rounded-full font-medium hover:bg-orange-600 transition shadow-lg transform hover:-translate-y-0.5">Llamar Ahora</a>
+                    <a href="tel:976756047" class="bg-brand-orange text-white px-5 py-2 rounded-full font-medium hover:bg-orange-600 transition shadow-lg transform hover:-translate-y-0.5">Llamar ahora</a>
                 </div>
 
-                <!-- Mobile menu button -->
                 <div class="md:hidden flex items-center">
                     <button id="mobile-menu-btn" class="text-gray-600 hover:text-brand-green-dark focus:outline-none p-2">
                         <i class="fas fa-bars text-2xl"></i>
@@ -91,427 +127,343 @@
             </div>
         </div>
         
-        <!-- Mobile Menu Panel -->
+        <!-- Menú móvil -->
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 px-4 py-4 space-y-4 shadow-lg absolute w-full left-0">
-            <button onclick="navigate('home'); toggleMobileMenu()" class="block w-full text-left text-gray-700 font-medium hover:text-brand-green-dark">Inicio</button>
-            <button onclick="scrollToSection('servicios'); toggleMobileMenu()" class="block w-full text-left text-gray-700 font-medium hover:text-brand-green-dark">Servicios</button>
-            <button onclick="scrollToSection('contacto'); toggleMobileMenu()" class="block w-full text-left text-gray-700 font-medium hover:text-brand-green-dark">Contacto</button>
-            <a href="https://m.facebook.com" target="_blank" class="block text-blue-600 font-medium"><i class="fab fa-facebook mr-2"></i> Facebook</a>
-            <a href="tel:976756047" class="block text-center bg-brand-orange text-white px-5 py-3 rounded-lg font-medium hover:bg-orange-600 w-full"><i class="fas fa-phone mr-2"></i> 976 75 60 47</a>
+            <button onclick="navigate('home'); toggleMobileMenu()" class="block w-full text-left text-gray-700 font-medium">Inicio</button>
+            <button onclick="scrollToSection('servicios'); toggleMobileMenu()" class="block w-full text-left text-gray-700 font-medium">Servicios</button>
+            <button onclick="navigate('galeria'); toggleMobileMenu()" class="block w-full text-left text-gray-700 font-medium">Galería</button>
+            <button onclick="scrollToSection('contacto'); toggleMobileMenu()" class="block w-full text-left text-gray-700 font-medium">Contacto</button>
         </div>
     </nav>
 
-    <!-- ========================================== -->
-    <!-- MAIN CONTENT (HOME PAGE)                   -->
-    <!-- ========================================== -->
+    <!-- PÁGINA DE INICIO -->
     <main id="home" class="page-section active flex-grow">
-        
         <!-- Hero Section -->
-        <section class="hero-bg h-[500px] flex items-center justify-center text-center px-4 relative">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-            <div class="relative z-10 max-w-3xl">
-                <div class="inline-flex items-center bg-white/20 backdrop-blur-sm rounded-full px-4 py-1.5 mb-6 border border-white/30 text-white shadow-lg">
-                    <div class="flex text-yellow-400 text-sm mr-2">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <span class="font-medium">4,3 (111 reseñas)</span>
-                </div>
-                <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">Frescura y Calidad Directo a tu Mesa</h1>
-                <p class="text-lg md:text-xl text-gray-200 mb-8 font-light">Tu frutería de confianza en el barrio de las Delicias, Zaragoza. Selección diaria de los mejores productos de la huerta.</p>
+        <section class="hero-bg h-[600px] flex items-center justify-center text-center px-4 relative">
+            <div class="absolute inset-0 bg-black/40"></div>
+            <div class="relative z-10 max-w-4xl">
+                <h1 class="text-4xl md:text-7xl font-bold text-white mb-6 leading-tight drop-shadow-xl">Frutas y Verduras de Confianza</h1>
+                <p class="text-lg md:text-2xl text-gray-100 mb-8 font-light max-w-2xl mx-auto">Tu frutería de barrio en las Delicias, Zaragoza. Selección diaria con la mejor calidad y trato cercano.</p>
                 <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <button onclick="scrollToSection('contacto')" class="bg-brand-green hover:bg-green-500 text-brand-green-dark font-bold py-3 px-8 rounded-full transition shadow-lg text-lg">Visítanos</button>
-                    <a href="tel:976756047" class="bg-white/10 hover:bg-white/20 backdrop-blur-md border-2 border-white text-white font-bold py-3 px-8 rounded-full transition shadow-lg text-lg">Hacer pedido</a>
+                    <button onclick="scrollToSection('contacto')" class="bg-brand-green hover:bg-green-500 text-brand-green-dark font-bold py-4 px-10 rounded-full transition shadow-xl text-lg flex items-center justify-center">
+                        <i class="fas fa-map-marker-alt mr-2"></i> Cómo llegar
+                    </button>
+                    <a href="tel:605977250" class="bg-white/10 hover:bg-white/20 backdrop-blur-md border-2 border-white text-white font-bold py-4 px-10 rounded-full transition shadow-xl text-lg flex items-center justify-center">
+                        <i class="fas fa-phone-alt mr-2"></i> Hacer Pedido
+                    </a>
                 </div>
             </div>
         </section>
 
-        <!-- Services Features -->
+        <!-- Sección de servicios -->
         <section id="servicios" class="py-16 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12">
-                    <h2 class="text-3xl font-bold text-gray-800 mb-4">¿Cómo quieres comprar hoy?</h2>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">Servicios Personalizados</h2>
                     <div class="w-20 h-1 bg-brand-orange mx-auto rounded"></div>
                 </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Feature 1 -->
-                    <div class="bg-gray-50 rounded-2xl p-8 text-center border border-gray-100 shadow-sm hover:shadow-md transition group">
-                        <div class="w-16 h-16 bg-brand-green/20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                            <i class="fas fa-store text-2xl text-brand-green-dark"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-3 flex justify-center items-center"><i class="fas fa-check text-brand-green mr-2 text-sm"></i> Compra en tienda</h3>
-                        <p class="text-gray-600">Ven a saludarnos y elige tú mismo las mejores piezas. Te asesoramos personalmente.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <div class="bg-gray-50 rounded-2xl p-8 border border-gray-100">
+                        <i class="fas fa-store text-4xl text-brand-green-dark mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Compra en tienda</h3>
+                        <p class="text-gray-600">Ven a visitarnos y elige tú mismo el mejor producto.</p>
                     </div>
-                    <!-- Feature 2 -->
-                    <div class="bg-gray-50 rounded-2xl p-8 text-center border border-gray-100 shadow-sm hover:shadow-md transition group">
-                        <div class="w-16 h-16 bg-brand-green/20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                            <i class="fas fa-shopping-bag text-2xl text-brand-green-dark"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-3 flex justify-center items-center"><i class="fas fa-check text-brand-green mr-2 text-sm"></i> Recogida en tienda</h3>
-                        <p class="text-gray-600">Llámanos, haznos tu pedido y te lo preparamos para que pases a recogerlo sin esperas.</p>
+                    <div class="bg-gray-50 rounded-2xl p-8 border border-gray-100">
+                        <i class="fas fa-phone-volume text-4xl text-brand-green-dark mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Encargos por teléfono</h3>
+                        <p class="text-gray-600">Llámanos y preparamos tu pedido para recoger.</p>
                     </div>
-                    <!-- Feature 3 -->
-                    <div class="bg-gray-50 rounded-2xl p-8 text-center border border-gray-100 shadow-sm hover:shadow-md transition group">
-                        <div class="w-16 h-16 bg-brand-orange/20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                            <i class="fas fa-motorcycle text-2xl text-brand-orange"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-3 flex justify-center items-center"><i class="fas fa-check text-brand-green mr-2 text-sm"></i> A domicilio</h3>
+                    <div class="bg-gray-50 rounded-2xl p-8 border border-gray-100">
+                        <i class="fas fa-shuttle-van text-4xl text-brand-green-dark mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">A domicilio</h3>
                         <p class="text-gray-600">Llevamos la frescura a tu puerta. Haz tu encargo por teléfono y nosotros nos encargamos.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Fresh Gallery (Simulated Products) -->
-        <section class="py-16 bg-gray-50">
+        <!-- Sección de contacto -->
+        <section id="contacto" class="py-16 bg-gray-50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl font-bold text-gray-800 mb-4">Lo mejor de la temporada</h2>
-                    <p class="text-gray-600 max-w-2xl mx-auto">Seleccionamos cuidadosamente cada pieza en origen para garantizar el máximo sabor y frescura en tu mesa.</p>
-                </div>
-                
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 relative group">
-                        <img src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&w=500&q=80" alt="Frutas frescas" class="w-full h-48 object-cover group-hover:scale-110 transition duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
-                            <span class="text-white font-bold p-4">Fruta de temporada</span>
-                        </div>
-                    </div>
-                    <div class="rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 relative group">
-                        <img src="https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?auto=format&fit=crop&w=500&q=80" alt="Verduras" class="w-full h-48 object-cover group-hover:scale-110 transition duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
-                            <span class="text-white font-bold p-4">Verdura fresca</span>
-                        </div>
-                    </div>
-                    <div class="rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 relative group">
-                        <img src="https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?auto=format&fit=crop&w=500&q=80" alt="Cítricos" class="w-full h-48 object-cover group-hover:scale-110 transition duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
-                            <span class="text-white font-bold p-4">Cítricos y zumos</span>
-                        </div>
-                    </div>
-                    <div class="rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 relative group">
-                        <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=500&q=80" alt="Especialidades" class="w-full h-48 object-cover group-hover:scale-110 transition duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
-                            <span class="text-white font-bold p-4">Especialidades</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Location & Contact -->
-        <section id="contacto" class="py-16 bg-white">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
-                    <div class="grid grid-cols-1 lg:grid-cols-2">
-                        
-                        <!-- Contact Info -->
-                        <div class="p-10 lg:p-14 flex flex-col justify-center">
-                            <h2 class="text-3xl font-bold text-gray-800 mb-6">Dónde encontrarnos</h2>
-                            
-                            <ul class="space-y-6 mb-8">
-                                <li class="flex items-start">
-                                    <div class="bg-brand-green/10 p-3 rounded-full mr-4 text-brand-green-dark">
-                                        <i class="fas fa-map-marker-alt text-xl w-5 text-center"></i>
-                                    </div>
-                                    <div>
-                                        <p class="font-bold text-gray-800">Dirección</p>
-                                        <p class="text-gray-600">Av. de Juan Carlos I, 8<br>Delicias, 50009 Zaragoza</p>
-                                        <p class="text-xs text-gray-400 mt-1">Plus Code: J3VQ+MJ Zaragoza</p>
-                                    </div>
-                                </li>
-                                <li class="flex items-start">
-                                    <div class="bg-brand-green/10 p-3 rounded-full mr-4 text-brand-green-dark">
-                                        <i class="fas fa-phone text-xl w-5 text-center"></i>
-                                    </div>
-                                    <div>
-                                        <p class="font-bold text-gray-800">Teléfono</p>
-                                        <p class="text-brand-green-dark text-xl font-medium"><a href="tel:976756047">976 75 60 47</a></p>
-                                    </div>
-                                </li>
-                                <li class="flex items-start">
-                                    <div class="bg-brand-green/10 p-3 rounded-full mr-4 text-brand-green-dark">
-                                        <i class="fas fa-clock text-xl w-5 text-center"></i>
-                                    </div>
-                                    <div>
-                                        <p class="font-bold text-gray-800">Horario</p>
-                                        <p class="text-gray-600">Cierre: 14:00 · Próxima apertura: 17:00</p>
-                                        <p class="text-sm text-brand-orange mt-1 italic"><i class="fas fa-info-circle"></i> El horario puede variar en Lunes de Pascua y festivos.</p>
-                                    </div>
-                                </li>
-                            </ul>
-                            
-                            <div class="flex space-x-4">
-                                <a href="https://maps.google.com/maps?q=Av.+de+Juan+Carlos+I,+8,+Zaragoza" target="_blank" class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-3 px-6 rounded-lg transition flex items-center">
-                                    <i class="fas fa-directions mr-2 text-brand-green-dark"></i> Cómo llegar
+                <div class="bg-white rounded-3xl shadow-xl overflow-hidden grid grid-cols-1 lg:grid-cols-2">
+                    <div class="p-8 lg:p-14 text-center lg:text-left">
+                        <h2 class="text-3xl font-bold text-gray-800 mb-8">Información de contacto</h2>
+                        <ul class="space-y-6 inline-block text-left">
+                            <li class="flex items-center">
+                                <i class="fas fa-map-marker-alt text-brand-orange text-xl w-8"></i>
+                                <span class="text-gray-700">Av. de Juan Carlos I, 8, Zaragoza</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-phone-alt text-brand-orange text-xl w-8"></i>
+                                <span class="text-gray-700">976 75 60 47 / 605 977 250</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-clock text-brand-orange text-xl w-8"></i>
+                                <span class="text-gray-700">L-V: 9-14h y 17-20:30h | S: 9-14h</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fab fa-facebook text-brand-facebook text-xl w-8"></i>
+                                <a href="https://www.facebook.com/www.frutascasao?locale=es_ES" target="_blank" class="text-brand-facebook font-medium hover:underline">
+                                    Facebook: Frutas Casao
                                 </a>
-                                <button onclick="navigator.clipboard.writeText('Av. de Juan Carlos I, 8, 50009 Zaragoza'); alert('Dirección copiada');" class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-3 px-4 rounded-lg transition" title="Copiar dirección">
-                                    <i class="far fa-copy"></i>
-                                </button>
-                            </div>
+                            </li>
+                        </ul>
+                        <div class="mt-10 flex flex-wrap justify-center lg:justify-start gap-4">
+                            <a href="https://maps.google.com/maps?q=Av.+de+Juan+Carlos+I,+8,+Zaragoza" target="_blank" class="inline-block bg-brand-green-dark text-white font-semibold py-4 px-8 rounded-xl hover:bg-green-800 transition shadow-lg">
+                                <i class="fas fa-location-arrow mr-2"></i> Abrir en Google Maps
+                            </a>
                         </div>
-                        
-                        <!-- Map -->
-                        <div class="h-96 lg:h-auto min-h-[400px]">
-                            <iframe 
-                                src="https://maps.google.com/maps?q=Av.%20de%20Juan%20Carlos%20I,%208,%20Zaragoza&t=&z=16&ie=UTF8&iwloc=&output=embed" 
-                                width="100%" 
-                                height="100%" 
-                                style="border:0;" 
-                                allowfullscreen="" 
-                                loading="lazy" 
-                                referrerpolicy="no-referrer-when-downgrade">
-                            </iframe>
-                        </div>
+                    </div>
+                    <div class="h-80 lg:h-auto min-h-[400px]">
+                        <iframe src="https://maps.google.com/maps?q=Av.%20de%20Juan%20Carlos%20I,%208,%20Zaragoza&t=&z=16&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- ========================================== -->
-    <!-- LEGAL PAGES (Hidden by default)            -->
-    <!-- ========================================== -->
+    <!-- PÁGINA DE GALERÍA COMPLETA -->
+    <main id="galeria" class="page-section flex-grow py-12 px-4 max-w-7xl mx-auto w-full">
+        <div class="flex flex-col md:flex-row justify-between items-center mb-10 gap-4 text-center md:text-left">
+            <div>
+                <h1 class="text-4xl font-bold text-gray-800 mb-2">Nuestra Galería</h1>
+                <p class="text-gray-600">Echa un vistazo a la calidad de nuestros productos frescos.</p>
+            </div>
+            <button onclick="navigate('home')" class="text-brand-green-dark bg-brand-green/10 px-4 py-2 rounded-lg hover:bg-brand-green/20 transition">
+                <i class="fas fa-chevron-left mr-2"></i> Volver al inicio
+            </button>
+        </div>
 
-    <!-- AVISO LEGAL -->
-    <main id="aviso-legal" class="page-section flex-grow py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto bg-white my-8 rounded-2xl shadow-sm border border-gray-100">
-        <button onclick="navigate('home')" class="text-brand-green-dark hover:text-brand-green mb-6 font-medium flex items-center">
-            <i class="fas fa-arrow-left mr-2"></i> Volver a inicio
-        </button>
-        <h1 class="text-3xl font-bold text-gray-900 mb-8 pb-4 border-b border-gray-200">Aviso Legal</h1>
-        
-        <div class="space-y-6 text-gray-700 leading-relaxed">
-            <section>
-                <h2 class="text-xl font-semibold text-gray-800 mb-3">1. Datos identificativos</h2>
-                <p>En cumplimiento con el deber de información recogido en artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y del Comercio Electrónico, a continuación se reflejan los siguientes datos: la empresa titular de dominio web es Frutas Casao (en adelante "El Titular"), con domicilio a estos efectos en Av. de Juan Carlos I, 8, Delicias, 50009 Zaragoza. Correo electrónico de contacto o teléfono: 976 75 60 47.</p>
-            </section>
-            
-            <section>
-                <h2 class="text-xl font-semibold text-gray-800 mb-3">2. Usuarios</h2>
-                <p>El acceso y/o uso de este portal de Frutas Casao atribuye la condición de USUARIO, que acepta, desde dicho acceso y/o uso, las Condiciones Generales de Uso aquí reflejadas. Las citadas Condiciones serán de aplicación independientemente de las Condiciones Generales de Contratación que en su caso resulten de obligado cumplimiento.</p>
-            </section>
-
-            <section>
-                <h2 class="text-xl font-semibold text-gray-800 mb-3">3. Uso del portal</h2>
-                <p>La página web proporciona el acceso a multitud de informaciones, servicios, programas o datos (en adelante, "los contenidos") en Internet pertenecientes a Frutas Casao o a sus licenciantes a los que el USUARIO pueda tener acceso. El USUARIO asume la responsabilidad del uso del portal.</p>
-            </section>
-
-            <section>
-                <h2 class="text-xl font-semibold text-gray-800 mb-3">4. Propiedad intelectual e industrial</h2>
-                <p>Frutas Casao por sí o como cesionaria, es titular de todos los derechos de propiedad intelectual e industrial de su página web, así como de los elementos contenidos en la misma (a título enunciativo, imágenes, sonido, audio, vídeo, software o textos; marcas o logotipos, combinaciones de colores, estructura y diseño, selección de materiales usados, etc.). Todos los derechos reservados.</p>
-            </section>
-
-            <section>
-                <h2 class="text-xl font-semibold text-gray-800 mb-3">5. Exclusión de garantías y responsabilidad</h2>
-                <p>Frutas Casao no se hace responsable, en ningún caso, de los daños y perjuicios de cualquier naturaleza que pudieran ocasionar, a título enunciativo: errores u omisiones en los contenidos, falta de disponibilidad del portal o la transmisión de virus o programas maliciosos o lesivos en los contenidos, a pesar de haber adoptado todas las medidas tecnológicas necesarias para evitarlo.</p>
-            </section>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <!-- Galería de fotos (se mantienen todas) -->
+            <div class="rounded-2xl overflow-hidden shadow-md group aspect-square">
+                <img src="https://scontent-mad1-1.xx.fbcdn.net/v/t39.30808-6/487239405_1290082332529330_2599390367388921312_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=7b2446&_nc_ohc=m_E_8AkmQ2wQ7kNvwE3Pw9_&_nc_oc=AdoxgkyF2m-U84jL5ulT-RN-ITdfDTL1G_cvRsvSzj6jVeSFeKXOPVH77tfy6NehZ-onKcJyJFesewuhvhOm2kwP&_nc_zt=23&_nc_ht=scontent-mad1-1.xx&_nc_gid=0R4Q2EqOtJrfXOmEK7E-UA&_nc_ss=7a3a8&oh=00_Af19vkeTDG61fLHdvpYSJ5QNu73qGNY6FuW0q5axHlWqXw&oe=69DC6AD1" alt="[Imagen de Fresas]" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-md group aspect-square">
+                <img src="https://scontent-mad1-1.xx.fbcdn.net/v/t39.30808-6/486521787_1290082339195996_6577137329163207439_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=103&ccb=1-7&_nc_sid=7b2446&_nc_ohc=nfdRw8PK3ScQ7kNvwHX1yhg&_nc_oc=AdpIZ1w3t_trklKKDdB9gMoBn5_romWUWJbzYMWb2pApP9vH3AXxszx-uHVKXbU6AqZThnH10R5VFh7ofu_cOyYw&_nc_zt=23&_nc_ht=scontent-mad1-1.xx&_nc_gid=RcIR4puABb47D67HPKvnXA&_nc_ss=7a3a8&oh=00_Af0p9nPkBXN_rC9QhHZW-LnaKLQpyQ-Hy2wMaXVaaNYbFg&oe=69DC7647" alt="[Imagen de Cesta de Frutas]" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-md group aspect-square">
+                <img src="https://scontent-mad1-1.xx.fbcdn.net/v/t39.30808-6/487313543_1290082362529327_7237821894258032191_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=103&ccb=1-7&_nc_sid=7b2446&_nc_ohc=bT2EXHvumr0Q7kNvwGDGZNk&_nc_oc=AdqrtkHsO3oLfYYUr_4_Nf0yWn7JlG3-0xKt1SYv9e23KD9YSFC4sCLe79548-nyoiIN4O43P_5Av7yFvwfOfFki&_nc_zt=23&_nc_ht=scontent-mad1-1.xx&_nc_gid=ojNglTNVhEnv4IaGpbNWeA&_nc_ss=7a3a8&oh=00_Af2PQR5y8AfjWnlZ682gUdJbmpQsHQfccJxj3icawxq-sw&oe=69DC8E3D" alt="[Imagen de Verduras]" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-md group aspect-square">
+                <img src="https://scontent-mad1-1.xx.fbcdn.net/v/t39.30808-6/486647129_1290082625862634_8029094528528664293_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=102&ccb=1-7&_nc_sid=7b2446&_nc_ohc=70epqdMEEIIQ7kNvwEQDcTR&_nc_oc=AdrTX3j3ZDtNaKqE1fKJyrKeBf3n0SfS3A8lsNszozgUsHYPJtefE-4INMgfURBBchrYtlcPmzHOdYLnBq2k_ljs&_nc_zt=23&_nc_ht=scontent-mad1-1.xx&_nc_gid=0C8yvS5FsfYXtYjV4W0_7A&_nc_ss=7a3a8&oh=00_Af3CI4vZGVuCoEzhSFSejf13IEwBs3f4KhM4tsgfh-vX1A&oe=69DC94CA" alt="[Imagen de Mostrador]" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-md group aspect-square">
+                <img src="https://scontent-mad2-1.xx.fbcdn.net/v/t39.30808-6/486727719_1290082275862669_4470939787141824_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=109&ccb=1-7&_nc_sid=7b2446&_nc_ohc=FpEYsqPLfJMQ7kNvwGqOgCO&_nc_oc=Adrn05JOqQqWGR2MjkmqifRAHZJlrK1d2WB6ou4A478eglLbtVDcEzNVGOHyFI6L02y0qohXl3bdFSPNzFJn58Tt&_nc_zt=23&_nc_ht=scontent-mad2-1.xx&_nc_gid=TFetdqemWimk5-fZOLwJvA&_nc_ss=7a3a8&oh=00_Af12gGzA1I31Dbzo1nncnCaFzFGPLekUoWeJ96q7oIf_7w&oe=69DC860C" alt="[Imagen de Fruta fresca]" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-md group aspect-square">
+                <img src="https://scontent-mad2-1.xx.fbcdn.net/v/t39.30808-6/486490504_1290082575862639_4557921049330030616_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=7b2446&_nc_ohc=z5De814nPEMQ7kNvwHm0Mod&_nc_oc=Ado22VjtPHeUrQ2aHyTpHGyLl1VaHAfnj-oD9r8Ofy6i-nnzuP9hzHerUHfxE5mWHWNIGpY1YPjFMYlUYf9qJ4LH&_nc_zt=23&_nc_ht=scontent-mad2-1.xx&_nc_gid=Avskj4dbMni0GNm-CWYKgA&_nc_ss=7a3a8&oh=00_Af2_G2oNlsKRdGGKbn0YFJylSH24fcfBwMLWhCfKvmrr8A&oe=69DC942F" alt="[Imagen de Local exterior]" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-md group aspect-square">
+                <img src="https://scontent-mad1-1.xx.fbcdn.net/v/t39.30808-6/486536526_1289038809300349_3914053376475843286_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=7b2446&_nc_ohc=qaUuJZ3cFD8Q7kNvwH_e_gm&_nc_oc=AdrydUIqQwNwSWv5HT15LpYeqsm3sD1_3K_sT3hZ_I714FVC2OK1Liwx5l-_0FehMgE71MzFKBCMai2EZD9BkZr-&_nc_zt=23&_nc_ht=scontent-mad1-1.xx&_nc_gid=I2kJWlSL9hGCg7DZiJFFRg&_nc_ss=7a3a8&oh=00_Af0-5iHz1vJ8JDFPlTgk_LgakAR5LvGnqhwfpCUKmNSxcQ&oe=69DD4A1D" alt="[Imagen del Mostrador de Fruta]" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-md group aspect-square">
+                <img src="https://scontent-mad1-1.xx.fbcdn.net/v/t39.30808-6/486693751_1289038375967059_7176260072469871123_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=7b2446&_nc_ohc=Qvi2B6HaGe0Q7kNvwHrbLlN&_nc_oc=AdqGBCVWSWBmHIttI7PHJ2ocSKf4Nq0xlh7np4IFAiao5ZHuwcCexbv5npV_Q3NUvxUZnLPR7NFSEMPNtfsMv362&_nc_zt=23&_nc_ht=scontent-mad1-1.xx&_nc_gid=1OhDKnpccG2vGhfzpl93WQ&_nc_ss=7a3a8&oh=00_Af0Kr_yXN_RSKO2md2I7HVgtizACnXx5FrdqHoLHzRxSmg&oe=69DCACD6" alt="[Imagen de Hortalizas y Productos]" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-md group aspect-square">
+                <img src="https://scontent-mad1-1.xx.fbcdn.net/v/t39.30808-6/487104321_1289038462633717_7016134101517839952_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=107&ccb=1-7&_nc_sid=7b2446&_nc_ohc=uBOuthTRW_8Q7kNvwELLfUg&_nc_oc=Ado13KOXnyyVZGS5UwgOh7rg9QqhCrpsLAGBLRVmIvB52c_K_VspIGVR8z10SBIsKI75-vrlRRy77h0zx5I9nFMf&_nc_zt=23&_nc_ht=scontent-mad1-1.xx&_nc_gid=6yGgeuEICgY2GhlJFASxNQ&_nc_ss=7a3a8&oh=00_Af16sQeb-Qiil6DgbrkYPeDWNiH-_op2QLRcQ8cloddiZw&oe=69DC8C98" alt="[Imagen de Legumbres y Productos Secos]" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-md group aspect-square">
+                <img src="https://scontent-mad1-1.xx.fbcdn.net/v/t39.30808-6/486629062_1289038789300351_3029777018389426720_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=7b2446&_nc_ohc=IrFFo5lAF9oQ7kNvwHuJkqq&_nc_oc=AdqG0WEmmLnxewHsHvFNezHADdRz3qjP7eM_66Q30adCY2O3P9AM9nISZtuoKzlyyskZq7sECOUbgeAf3hZVmtOr&_nc_zt=23&_nc_ht=scontent-mad1-1.xx&_nc_gid=13F9aQrTJLmyfGdBf1yfyQ&_nc_ss=7a3a8&oh=00_Af3VTcmkMpgsHie37QedY03V6G3h6zAhl-V2gIc8miixlg&oe=69DC8727" alt="[Imagen de Mostrador de Verduras]" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-md group aspect-square">
+                <img src="https://scontent-mad1-1.xx.fbcdn.net/v/t39.30808-6/487136039_1289038495967047_3875872722365645422_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=102&ccb=1-7&_nc_sid=7b2446&_nc_ohc=ULur99n-FfAQ7kNvwHudjJx&_nc_oc=AdoyzhPXPpwtQO_6Es4_dgQjJocr2IYrvJcbGCm5Rc2HIuswmosAgAYxmgRCO4aiAwwJltxwtNJeTs5MqhCOqs6C&_nc_zt=23&_nc_ht=scontent-mad1-1.xx&_nc_gid=jKCVBNp3KdLr7yretnwtSg&_nc_ss=7a3a8&oh=00_Af1ws7cPw6i4T4wTqTYTk43mzqYIqrmDKLwpu4pakIGeug&oe=69DC8953" alt="[Imagen de Ajos y Productos de Despensa]" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-md group aspect-square">
+                <img src="https://scontent-mad2-1.xx.fbcdn.net/v/t39.30808-6/486932645_1289038699300360_7887067072272860003_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=104&ccb=1-7&_nc_sid=7b2446&_nc_ohc=Bktf9N2gt-IQ7kNvwFfFTfw&_nc_oc=AdpK9-2_anpMSRxCjNp2_wEhk6UZatmKyTQkLu2B5AM8roUT8IHpJlsSswIKW5-kerZPaG_uEqq1VKaNfkUg9BF-&_nc_zt=23&_nc_ht=scontent-mad2-1.xx&_nc_gid=cmtbGiCBgJBGY_jnSR5Cfg&_nc_ss=7a3a8&oh=00_Af29XPJCJ-AlBdet39itZMLQ2iI7jRYGRKbKflJ_-oPjzA&oe=69DC9BFF" alt="[Imagen de Estantería de Productos Frescos]" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-md group aspect-square">
+                <img src="https://scontent-mad2-1.xx.fbcdn.net/v/t39.30808-6/486699440_1289038725967024_8349872210537396172_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=110&ccb=1-7&_nc_sid=7b2446&_nc_ohc=OubW31IJEREQ7kNvwEq_jwy&_nc_oc=AdolDt4DkPCMt5MniMgQB3G37CSdnovyxlhuiEkOxorI3jig0LTqUDLJ4BK6RR4NdbG7M5pZCwEZJSuU1hNbNDsd&_nc_zt=23&_nc_ht=scontent-mad2-1.xx&_nc_gid=V3bL3Zt5Ew-3hhkkeRdaRg&_nc_ss=7a3a8&oh=00_Af0h0eir_tO9VDcgnOlpbDiHNK9hGpJwuWx6ZFDKYGG17A&oe=69DC9113" alt="[Imagen de Interior de la Tienda]" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-md group aspect-square">
+                <img src="https://scontent-mad2-1.xx.fbcdn.net/v/t39.30808-6/486465452_1288079556062941_2893598361882379395_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=7b2446&_nc_ohc=S0ACKg_EN40Q7kNvwHgzDzV&_nc_oc=AdoI8s4sNuSyKW7eaiWKcNK2hYr9Ew63aTvqljkRQBq9LiLIEOMEW7QT7EDaFas0Dwdxpv3L5fzQlmzyIGhQ34jM&_nc_zt=23&_nc_ht=scontent-mad2-1.xx&_nc_gid=EQoIcKbIPHqiCFwi0oxj4Q&_nc_ss=7a3a8&oh=00_Af3Bp-Pyq_KzVxSr1XEf8QRGTPQd8jrBF_qpjxnld38USg&oe=69DC7CCE" alt="[Imagen de Cestas de Frutas y Género]" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-md group aspect-square">
+                <img src="https://scontent-mad1-1.xx.fbcdn.net/v/t39.30808-6/486170995_1288079582729605_3481696273016420807_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=7b2446&_nc_ohc=jvrvnRXM-kIQ7kNvwF4uucI&_nc_oc=Ado3pvCJMYkZEw6lgLtRK3kU575FdXB389a2g-ot8ZdqkWpvCtuR0cm9MMduM9gPe9Be_t_QcTlWJZVO-LcwktjC&_nc_zt=23&_nc_ht=scontent-mad1-1.xx&_nc_gid=5kC5NEgL92pCClJ8cXF9GA&_nc_ss=7a3a8&oh=00_Af1-W7PAYjsp_uRaGX4Tz9mShamZw22U_vp0agF55oVhlg&oe=69DCA5F1" alt="[Imagen de Cajas de Verduras y Legumbres]" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-md group aspect-square">
+                <img src="https://scontent-mad1-1.xx.fbcdn.net/v/t39.30808-6/485392284_1284858423051721_5938083032305783943_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=7b2446&_nc_ohc=sNLZ90jUlrAQ7kNvwF7XaS8&_nc_oc=Ado8iOy3-To4cszUWErsw2jyDJxUAgDvkGyPSlN8pcawfY7k6hvvsXatEEx60vxPQVCEtxxYOuK9cV53d-xOxBOr&_nc_zt=23&_nc_ht=scontent-mad1-1.xx&_nc_gid=RSzI_Aw-i2381ishEy-GOw&_nc_ss=7a3a8&oh=00_Af3cf58PlWM8CiJAU5iXCGnHAsuusroNeIoTyTqhDd5HRQ&oe=69DC7DAC" alt="[Imagen de Frutas y Hortalizas]" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-md group aspect-square">
+                <img src="https://scontent-mad2-1.xx.fbcdn.net/v/t39.30808-6/485951632_1284858599718370_4198714287007337569_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=7b2446&_nc_ohc=Oclfn_SARW4Q7kNvwEUaDPW&_nc_oc=Adpbq-r7Q4mxezGHFQ8ygcSe3ygf-2k6OvB1voz6aoDTPWdXSPsZQzx0MBB-qimBMyWwHJSKo9RFqxueA_isyrEx&_nc_zt=23&_nc_ht=scontent-mad2-1.xx&_nc_gid=EQ8hlSgUFYiFa7qgC-i2Tg&_nc_ss=7a3a8&oh=00_Af0tgN2rcxmSuN-jF7P3c3GYZneuTVEa24htwjt-rNQsTg&oe=69DCAF22" alt="[Imagen del Mostrador con Cítricos]" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-md group aspect-square">
+                <img src="https://scontent-mad2-1.xx.fbcdn.net/v/t39.30808-6/485766832_1284858559718374_6345420868453264295_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=7b2446&_nc_ohc=F197K6OItaMQ7kNvwGwHM2J&_nc_oc=AdrCLi3nyxFLota-nJ0DzWS4lJNTwgKK1c1H9pSUjHG3S3_Qx1duippcf8NBXpRtqB5m1i6lfT7Dbzu2iWG7nVcp&_nc_zt=23&_nc_ht=scontent-mad2-1.xx&_nc_gid=kMFAQzRIQKqQGVIG91nkWA&_nc_ss=7a3a8&oh=00_Af1YtTHi6g6GQk-RXVQNaxKDmSndgl_OAdGqLGLopnYx8g&oe=69DCA3E9" alt="[Imagen de Estanterías Interiores]" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-md group aspect-square">
+                <img src="https://scontent-mad1-1.xx.fbcdn.net/v/t39.30808-6/485720769_1284858319718398_5900630374695933474_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=7b2446&_nc_ohc=LCSOik1gOfMQ7kNvwHaIJ_d&_nc_oc=AdoGKban_slvL_6cr37l8t5UrvPdqiY9HvaXwbSVJeKWoeEQRK2_eLQP9IxIsClyNS7Yp8WL92KkvH11mFsLQzsY&_nc_zt=23&_nc_ht=scontent-mad1-1.xx&_nc_gid=tU2cQBL30eDMmZYVcCCnnQ&_nc_ss=7a3a8&oh=00_Af2tYeZUwIgtnt0omevnn8ZXEEiNd3DCwtwk3HjE4RlaGw&oe=69DC9019" alt="[Imagen de Fruta en Estantería]" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-md group aspect-square">
+                <img src="https://scontent-mad2-1.xx.fbcdn.net/v/t39.30808-6/486159559_1284858536385043_3117604932911650815_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=7b2446&_nc_ohc=aCOyJnWWMgkQ7kNvwHaKJo7&_nc_oc=AdpE52omH5DuruZsKXnSfX3oCSKYKc2k5D57TphshumXH7BkuXAuzRuPWBkhtB5eISLt_KF76QrIKLHLxxrU9UIK&_nc_zt=23&_nc_ht=scontent-mad2-1.xx&_nc_gid=ZRsB-uBNggsEO-JbkxeXKA&_nc_ss=7a3a8&oh=00_Af0u7Q8wjaDnJ5anZRsEmdRv4-mwzgeXUbV88D8Fo2IDhg&oe=69DCB4C1" alt="[Imagen de Frutas en Mostrador]" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-md group aspect-square">
+                <img src="https://scontent-mad2-1.xx.fbcdn.net/v/t39.30808-6/481792604_1269762057894691_7880877414361223368_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=7b2446&_nc_ohc=qyt8HKWJeX4Q7kNvwHqCzYC&_nc_oc=AdoFWLDaYXGu8Mo7v4lWH45dzmAjxZbuTvdMGFNjeO2-fSGbzfnOGYBZekrA2WDGdtiXt8tTF6mScvQhXjfGpXKB&_nc_zt=23&_nc_ht=scontent-mad2-1.xx&_nc_gid=wXcKmLrdYmf3d0UsLwRNgA&_nc_ss=7a3a8&oh=00_Af0z_2OXtC_BfMGRdpWCeXEih-fbhZpjzQl7YFMp4RBRwg&oe=69DCA416" alt="[Imagen de Fresas detalladas]" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-md group aspect-square">
+                <img src="https://scontent-mad1-1.xx.fbcdn.net/v/t39.30808-6/481304173_1269761977894699_2685341076718642940_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=7b2446&_nc_ohc=7XFNosOLCu4Q7kNvwH9Gb-v&_nc_oc=AdrHMfUeXddLrZv9VbQnUCMa6NFNlHf6TuvvMNW_kZTEDyb1_nxD9b7cbbFhoqvz7Y3GBXgglxpuGh2WiP3G_XuF&_nc_zt=23&_nc_ht=scontent-mad1-1.xx&_nc_gid=gsVz8YV-sskNFevRxD7QCw&_nc_ss=7a3a8&oh=00_Af3yTsF1ZD6A0-b2H2f9JD_MBIaYqhGrlOPzjEW9bKyvEw&oe=69DCA52B" alt="[Imagen de Tomates frescos]" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-md group aspect-square">
+                <img src="https://scontent-mad2-1.xx.fbcdn.net/v/t39.30808-6/481654783_1269762021228028_1838532429909741794_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=7b2446&_nc_ohc=yFtfZMXWMKkQ7kNvwEM2tnG&_nc_oc=AdoEJg_Q1YLUUfYJU4Xi50j8xmOrna7wYySwl0QbWuuFsCKgYTEIWCbzL23g6N6YhnWaEozMfIoXBVUEEAeb_MJg&_nc_zt=23&_nc_ht=scontent-mad2-1.xx&_nc_gid=Tlqsz6JWLkeE00c_27bY_Q&_nc_ss=7a3a8&oh=00_Af1OtuksW3Pq4kBbrkUi8Na-yPo9D6JABrpogRZXtlf_5A&oe=69DCB61C" alt="[Imagen de Verduras en mostrador]" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-md group aspect-square">
+                <img src="https://scontent-mad1-1.xx.fbcdn.net/v/t39.30808-6/481234847_1269761951228035_2933849379077336235_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=7b2446&_nc_ohc=EW6G8yyR6hYQ7kNvwF682-5&_nc_oc=AdrxBupgzRBx73wBjZ5_ODRfC0CVMIRa5J8UA_NAas5AkofQf1t1ImG6smWFTGmRQW3MnbIMuCqx9aBoLcnFCulP&_nc_zt=23&_nc_ht=scontent-mad1-1.xx&_nc_gid=tNpkoWktfr0H3Ak8Mul0aA&_nc_ss=7a3a8&oh=00_Af3V37zkfd9ru-l48oC1SNO84JLeXK6nLsmwfmCH7k4sxw&oe=69DCA05A" alt="[Imagen de Fruta fresca y mostrador]" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-md group aspect-square">
+                <img src="https://scontent-mad2-1.xx.fbcdn.net/v/t39.30808-6/481712495_1264143838456513_5801090401727136654_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=7b2446&_nc_ohc=fgIgcsEBzroQ7kNvwF2IVlj&_nc_oc=AdqOrmwl7MXmSUTP_v3DACQZ3bNyoTDaw7ZhErpyi6dfDWV7Syywl-qmdUMT8oyhavlKbUg1HuhLM244x2YLiAE2&_nc_zt=23&_nc_ht=scontent-mad2-1.xx&_nc_gid=7ILhl6gfk1cIgM1kgk0QIQ&_nc_ss=7a3a8&oh=00_Af1HCGWEZpPsBr64oq7B8JAO37EXSeVDyNRgnyv6HWGzaw&oe=69DCA651" alt="[Imagen de Variedad de frutas]" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-md group aspect-square">
+                <img src="https://scontent-mad1-1.xx.fbcdn.net/v/t39.30808-6/481252592_1264143825123181_1315542497568919156_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=7b2446&_nc_ohc=Gi3wr0XiMG8Q7kNvwGmCbeN&_nc_oc=AdrywDcIZIguXCsmJwLtQyJ-3aiQETIkeYiputABVDzotWmkWlXYyj9qm1U1GRCo8PSFaaCZ2sw6LrOoYEMcemrj&_nc_zt=23&_nc_ht=scontent-mad1-1.xx&_nc_gid=GsDzV21_H_VJ4kcHrWJdoQ&_nc_ss=7a3a8&oh=00_Af0yBxvdRVtAVdQ7askMSUgKs2m_oXRpFsUu64zowYsASQ&oe=69DC8BFD" alt="[Imagen de Fruta fresca]" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-md group aspect-square">
+                <img src="https://scontent-mad2-1.xx.fbcdn.net/v/t39.30808-6/480608303_1264143818456515_6720772134541739350_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=7b2446&_nc_ohc=RjziAl38kXEQ7kNvwHBkVIr&_nc_oc=AdqPdbsTPyNvuE530nhZYf5FhLAawLhU-3xrsxtTMbML9a2iGUl7ZPi-ANzuNS3sH86_uEEkSavsHkqqxAoxSvqa&_nc_zt=23&_nc_ht=scontent-mad2-1.xx&_nc_gid=vFXZUmEBf_uGQ5bXynC61Q&_nc_ss=7a3a8&oh=00_Af05nye8dsh9F2dYBUtbA-XzkKnA5ngCP76pBcvCYcH2mA&oe=69DD303A" alt="[Imagen de Productos de temporada]" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-md group aspect-square">
+                <img src="https://scontent-mad1-1.xx.fbcdn.net/v/t39.30808-6/481265782_1264143881789842_7518589007916283305_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=7b2446&_nc_ohc=vsi21J4VrRAQ7kNvwFTWegc&_nc_oc=AdrIzT2pPOTzMnwfa8xq_pA6hkZKzIudJENljhE-Eg2RSMKBDeVe3VD3NvXkd0aKRIzwVFsgTJhnlTHeVOC-jzKc&_nc_zt=23&_nc_ht=scontent-mad1-1.xx&_nc_gid=zjz5DWXsIaC0y75do5yWVw&_nc_ss=7a3a8&oh=00_Af3nLSwwJKPcr7_Xezvt-VpKEat58F169-yDFfF0e4rrtA&oe=69DCA2C8" alt="[Imagen de Productos variados]" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-md group aspect-square">
+                <img src="https://i.postimg.cc/8CQ0VVjb/Whats-App-Image-2026-04-08-at-18-30-22-(1).jpg" alt="[Imagen de Producto fresco 29]" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-md group aspect-square">
+                <img src="https://i.postimg.cc/htFrX1cc/Whats-App-Image-2026-04-08-at-18-30-22.jpg" alt="[Imagen de Producto fresco 30]" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-md group aspect-square">
+                <img src="https://scontent-mad2-1.xx.fbcdn.net/v/t39.30808-6/481309614_1264143375123226_2499892271003597174_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=7b2446&_nc_ohc=Lel4rfpGXHEQ7kNvwHPaeDY&_nc_oc=Adra0_PT2ykEK3aQpo4BG-DLccZhPHExOinluw-svzbW_rbA9LvBknA-aB4fw9uL_Zvuq_0N5dUQW4nJfI8zuflY&_nc_zt=23&_nc_ht=scontent-mad2-1.xx&_nc_gid=lbzKYnNCeJjh0gPPrEc9jQ&_nc_ss=7a3a8&oh=00_Af0TrW6GeWoFiWuNeb4_tpERhbP_AwlFWKqSG3uBC5aEAA&oe=69DCB765" alt="[Imagen de Producto fresco 31]" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-md group aspect-square">
+                <img src="https://scontent-mad1-1.xx.fbcdn.net/v/t39.30808-6/481014383_1264143425123221_87625164578892504_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=7b2446&_nc_ohc=DXk0eAO8CWMQ7kNvwGR83d6&_nc_oc=AdpTiu-dQrYeBGtp6R7k8JrtxNn8OvQUi4ybW3xBVs5V28DXwis9Z3jbv05Jqx_msO_4-8H29OXHl-vSvCZRi9Uo&_nc_zt=23&_nc_ht=scontent-mad1-1.xx&_nc_gid=ws4G3lcavSJd-eOdSL0Ejw&_nc_ss=7a3a8&oh=00_Af2Bg22HUGIuFsZ8wRrvo5heWksQGAXpXB2DKbb2qelz9Q&oe=69DCA43F" alt="[Imagen de Producto fresco 32]" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
         </div>
     </main>
 
-    <!-- POLÍTICA DE PRIVACIDAD -->
-    <main id="privacidad" class="page-section flex-grow py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto bg-white my-8 rounded-2xl shadow-sm border border-gray-100">
-        <button onclick="navigate('home')" class="text-brand-green-dark hover:text-brand-green mb-6 font-medium flex items-center">
-            <i class="fas fa-arrow-left mr-2"></i> Volver a inicio
-        </button>
-        <h1 class="text-3xl font-bold text-gray-900 mb-8 pb-4 border-b border-gray-200">Política de Privacidad</h1>
-        
-        <div class="space-y-6 text-gray-700 leading-relaxed">
-            <p>La presente Política de Privacidad establece los términos en que Frutas Casao usa y protege la información que es proporcionada por sus usuarios al momento de utilizar su sitio web o realizar pedidos telefónicos.</p>
-            
+    <!-- PÁGINAS LEGALES -->
+    <main id="aviso-legal" class="page-section flex-grow py-12 px-4 max-w-4xl mx-auto">
+        <button onclick="navigate('home')" class="text-brand-green-dark hover:underline mb-8 flex items-center"><i class="fas fa-arrow-left mr-2"></i> Volver</button>
+        <h1 class="text-3xl font-bold mb-6 text-gray-800">Aviso Legal</h1>
+        <div class="prose prose-green text-gray-600 space-y-6">
             <section>
-                <h2 class="text-xl font-semibold text-gray-800 mb-3">1. Información que es recogida</h2>
-                <p>Nuestro sitio web o sistema de pedidos puede recoger información personal como: Nombre, información de contacto como su dirección de correo electrónico, teléfono y dirección postal de entrega (para pedidos a domicilio).</p>
-            </section>
-
-            <section>
-                <h2 class="text-xl font-semibold text-gray-800 mb-3">2. Uso de la información recogida</h2>
-                <p>Frutas Casao emplea la información con el fin de proporcionar el mejor servicio posible, particularmente para mantener un registro de usuarios, de pedidos en caso que aplique, y mejorar nuestros productos y servicios. La legitimación para el tratamiento de sus datos es la ejecución de un contrato o pedido y su consentimiento explícito.</p>
-            </section>
-
-            <section>
-                <h2 class="text-xl font-semibold text-gray-800 mb-3">3. Conservación de datos</h2>
-                <p>Los datos personales proporcionados se conservarán mientras se mantenga la relación comercial, o hasta que usted solicite su supresión y durante el plazo por el cual pudieran derivarse responsabilidades legales por los servicios prestados.</p>
-            </section>
-
-            <section>
-                <h2 class="text-xl font-semibold text-gray-800 mb-3">4. Derechos de los usuarios</h2>
-                <p>Cualquier persona tiene derecho a obtener confirmación sobre si en Frutas Casao estamos tratando datos personales que les conciernan, o no. Las personas interesadas tienen derecho a:</p>
-                <ul class="list-disc pl-6 mt-2 space-y-1">
-                    <li>Solicitar el acceso a los datos personales relativos al interesado.</li>
-                    <li>Solicitar su rectificación o supresión.</li>
-                    <li>Solicitar la limitación de su tratamiento.</li>
-                    <li>Oponerse al tratamiento.</li>
-                    <li>Solicitar la portabilidad de los datos.</li>
+                <h2 class="text-xl font-semibold text-brand-green-dark mb-2">1. Información General</h2>
+                <p>En cumplimiento con el deber de información recogido en el artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y del Comercio Electrónico, se detallan los datos del titular:</p>
+                <ul class="list-disc ml-6 mt-2 space-y-1">
+                    <li><strong>Titular:</strong> Frutas Casao</li>
+                    <li><strong>NIF:</strong> B 25965377</li>
+                    <li><strong>Dirección:</strong> Av. de Juan Carlos I, 8, 50009 Zaragoza</li>
+                    <li><strong>Teléfono:</strong> 976 75 60 47</li>
                 </ul>
-                <p class="mt-2">Puede ejercer estos derechos dirigiendo una comunicación al establecimiento físico en Av. de Juan Carlos I, 8, Zaragoza o vía telefónica.</p>
+            </section>
+            <section>
+                <h2 class="text-xl font-semibold text-brand-green-dark mb-2">2. Propiedad Intelectual</h2>
+                <p>Los contenidos de este sitio web (textos, imágenes, logotipos) son propiedad de Frutas Casao o dispone de los derechos necesarios para su uso. Queda prohibida la reproducción total o parcial sin autorización expresa.</p>
+            </section>
+            <section>
+                <h2 class="text-xl font-semibold text-brand-green-dark mb-2">3. Exención de Responsabilidad</h2>
+                <p>Frutas Casao no se hace responsable de los daños y perjuicios de cualquier naturaleza que pudieran ocasionar errores u omisiones en los contenidos, falta de disponibilidad del portal o la transmisión de virus, a pesar de haber adoptado todas las medidas tecnológicas necesarias para evitarlo.</p>
             </section>
         </div>
     </main>
 
-    <!-- POLÍTICA DE COOKIES -->
-    <main id="cookies" class="page-section flex-grow py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto bg-white my-8 rounded-2xl shadow-sm border border-gray-100">
-        <button onclick="navigate('home')" class="text-brand-green-dark hover:text-brand-green mb-6 font-medium flex items-center">
-            <i class="fas fa-arrow-left mr-2"></i> Volver a inicio
-        </button>
-        <h1 class="text-3xl font-bold text-gray-900 mb-8 pb-4 border-b border-gray-200">Política de Cookies</h1>
-        
-        <div class="space-y-6 text-gray-700 leading-relaxed">
-            <p>En la web de Frutas Casao utilizamos cookies para facilitar la relación de los visitantes con nuestro contenido y para permitir elaborar estadísticas sobre las visitantes que recibimos.</p>
-            
+    <main id="privacidad" class="page-section flex-grow py-12 px-4 max-w-4xl mx-auto">
+        <button onclick="navigate('home')" class="text-brand-green-dark hover:underline mb-8 flex items-center"><i class="fas fa-arrow-left mr-2"></i> Volver</button>
+        <h1 class="text-3xl font-bold mb-6 text-gray-800">Política de Privacidad</h1>
+        <div class="prose prose-green text-gray-600 space-y-6">
             <section>
-                <h2 class="text-xl font-semibold text-gray-800 mb-3">¿Qué son las cookies?</h2>
-                <p>Una cookie es un pequeño archivo de texto que un sitio web guarda en su ordenador o dispositivo móvil cuando usted visita el sitio. Permite al sitio web recordar sus acciones y preferencias (como el inicio de sesión, el idioma, el tamaño de letra y otras preferencias de visualización) durante un período de tiempo.</p>
+                <h2 class="text-xl font-semibold text-brand-green-dark mb-2">1. Responsable del Tratamiento</h2>
+                <p>Frutas Casao, con NIF B 25965377, es responsable del tratamiento de los datos personales facilitados por los usuarios a través de esta web o vía telefónica para la gestión de pedidos.</p>
             </section>
-
             <section>
-                <h2 class="text-xl font-semibold text-gray-800 mb-3">¿Qué tipos de cookies utiliza esta página web?</h2>
-                <ul class="list-disc pl-6 mt-2 space-y-3">
-                    <li><strong>Cookies técnicas:</strong> Son aquellas que permiten al usuario la navegación a través de una página web y la utilización de las diferentes opciones o servicios que en ella existan (ej. guardar la aceptación del propio banner de cookies).</li>
-                    <li><strong>Cookies de análisis:</strong> Son aquellas que bien tratadas por nosotros o por terceros (Google Analytics), nos permiten cuantificar el número de usuarios y así realizar la medición y análisis estadístico de la utilización que hacen los usuarios del servicio ofertado.</li>
-                </ul>
+                <h2 class="text-xl font-semibold text-brand-green-dark mb-2">2. Finalidad y Legitimación</h2>
+                <p>Tratamos sus datos con el fin exclusivo de gestionar sus solicitudes de información y pedidos a domicilio. La base legal es el consentimiento del usuario al contactarnos y el cumplimiento de la relación comercial.</p>
             </section>
-
             <section>
-                <h2 class="text-xl font-semibold text-gray-800 mb-3">Revocación y eliminación de cookies</h2>
-                <p>Puedes permitir, bloquear o eliminar las cookies instaladas en tu equipo mediante la configuración de las opciones del navegador instalado en tu ordenador. En la función Ayuda de la mayoría de los navegadores se indica cómo configurar su navegador para que no acepte cookies.</p>
+                <h2 class="text-xl font-semibold text-brand-green-dark mb-2">3. Conservación de Datos</h2>
+                <p>Los datos se conservarán durante el tiempo necesario para la prestación del servicio solicitado y durante los plazos legales requeridos por la normativa fiscal y comercial.</p>
+            </section>
+            <section>
+                <h2 class="text-xl font-semibold text-brand-green-dark mb-2">4. Derechos</h2>
+                <p>Los usuarios pueden ejercer sus derechos de acceso, rectificación, supresión y portabilidad de sus datos dirigiéndose a nuestro establecimiento físico en Zaragoza.</p>
             </section>
         </div>
     </main>
 
-    <!-- ========================================== -->
-    <!-- FOOTER                                     -->
-    <!-- ========================================== -->
-    <footer class="bg-gray-900 text-gray-300 py-12 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 text-center md:text-left">
-                <!-- Brand -->
-                <div>
-                    <h3 class="text-2xl font-bold text-white mb-4"><i class="fas fa-apple-whole text-brand-orange mr-2"></i> Frutas Casao</h3>
-                    <p class="text-gray-400 mb-4">Selección diaria de la mejor fruta y verdura de Zaragoza. Calidad y frescura garantizada.</p>
-                    <div class="flex justify-center md:justify-start space-x-4">
-                        <a href="https://m.facebook.com" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Quick Links -->
-                <div>
-                    <h4 class="text-lg font-semibold text-white mb-4">Enlaces Rápidos</h4>
-                    <ul class="space-y-2">
-                        <li><button onclick="navigate('home'); setTimeout(()=>scrollToSection('servicios'), 100)" class="hover:text-brand-green transition">Servicios</button></li>
-                        <li><button onclick="navigate('home'); setTimeout(()=>scrollToSection('contacto'), 100)" class="hover:text-brand-green transition">Dónde estamos</button></li>
-                        <li><a href="tel:976756047" class="hover:text-brand-green transition">Hacer pedido telefónico</a></li>
-                    </ul>
-                </div>
-                
-                <!-- Legal -->
-                <div>
-                    <h4 class="text-lg font-semibold text-white mb-4">Información Legal</h4>
-                    <ul class="space-y-2">
-                        <li><button onclick="navigate('aviso-legal')" class="hover:text-brand-green transition">Aviso Legal</button></li>
-                        <li><button onclick="navigate('privacidad')" class="hover:text-brand-green transition">Política de Privacidad</button></li>
-                        <li><button onclick="navigate('cookies')" class="hover:text-brand-green transition">Política de Cookies</button></li>
-                    </ul>
+    <main id="cookies" class="page-section flex-grow py-12 px-4 max-w-4xl mx-auto">
+        <button onclick="navigate('home')" class="text-brand-green-dark hover:underline mb-8 flex items-center"><i class="fas fa-arrow-left mr-2"></i> Volver</button>
+        <h1 class="text-3xl font-bold mb-6 text-gray-800">Política de Cookies</h1>
+        <div class="prose prose-green text-gray-600 space-y-6">
+            <section>
+                <h2 class="text-xl font-semibold text-brand-green-dark mb-2">1. Uso de Cookies</h2>
+                <p>Este sitio web utiliza cookies técnicas esenciales para el correcto funcionamiento de la navegación. No utilizamos cookies publicitarias ni de seguimiento de comportamiento personal.</p>
+            </section>
+            <section>
+                <h2 class="text-xl font-semibold text-brand-green-dark mb-2">2. Desactivación</h2>
+                <p>Usted puede configurar su navegador para bloquear o eliminar las cookies en cualquier momento. Tenga en cuenta que esto podría afectar a la visualización correcta de algunos elementos del sitio.</p>
+            </section>
+        </div>
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="bg-gray-900 text-gray-400 py-12">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-10">
+            <div>
+                <h4 class="text-white font-bold text-xl mb-4 text-center md:text-left">Frutas Casao</h4>
+                <p class="text-sm text-center md:text-left">Frescura diaria en el barrio de las Delicias. Tu salud es nuestra prioridad.</p>
+            </div>
+            <div class="text-center md:text-left">
+                <h4 class="text-white font-bold text-lg mb-4">Legales</h4>
+                <div class="flex flex-col gap-2 text-sm">
+                    <button onclick="navigate('aviso-legal')" class="hover:text-brand-green text-left">Aviso Legal</button>
+                    <button onclick="navigate('privacidad')" class="hover:text-brand-green text-left">Política de Privacidad</button>
+                    <button onclick="navigate('cookies')" class="hover:text-brand-green text-left">Política de Cookies</button>
                 </div>
             </div>
-            
-            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
-                <p>&copy; 2026 Frutas Casao. Todos los derechos reservados.</p>
-                <p class="mt-2 md:mt-0">Desarrollado para <i class="fab fa-github"></i> GitHub Pages</p>
+            <div class="text-center md:text-left">
+                <h4 class="text-white font-bold text-lg mb-4">Redes Sociales</h4>
+                <div class="flex justify-center md:justify-start space-x-4 mb-4">
+                    <a href="https://www.facebook.com/www.frutascasao?locale=es_ES" target="_blank" class="hover:text-brand-facebook transition text-2xl"><i class="fab fa-facebook"></i></a>
+                </div>
+                <h4 class="text-white font-bold text-lg mb-4">Contacto</h4>
+                <p class="text-sm">Av. Juan Carlos I, 8<br>50009 Zaragoza</p>
+                <p class="text-xs mt-2 italic text-gray-500">NIF: B 25965377</p>
             </div>
+        </div>
+        <div class="border-t border-gray-800 mt-8 pt-8 text-center text-xs">
+            &copy; 2026 Frutas Casao. Todos los derechos reservados.
         </div>
     </footer>
 
-    <!-- ========================================== -->
-    <!-- COOKIE BANNER                              -->
-    <!-- ========================================== -->
-    <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 shadow-[0_-10px_20px_rgba(0,0,0,0.1)] z-50 transform translate-y-full transition-transform duration-500 ease-in-out">
-        <div class="max-w-7xl mx-auto p-4 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div class="text-sm text-gray-600 flex-grow text-center sm:text-left">
-                Utilizamos cookies propias y de terceros para mejorar la experiencia de navegación, y ofrecer contenidos de interés. Al continuar con la navegación entendemos que se acepta nuestra <button onclick="navigate('cookies')" class="text-brand-green-dark underline font-medium">Política de Cookies</button>.
-            </div>
-            <div class="flex shrink-0 gap-3">
-                <button id="accept-cookies" class="bg-brand-green-dark hover:bg-green-800 text-white px-6 py-2 rounded-lg font-medium transition whitespace-nowrap">
-                    Aceptar todas
-                </button>
-                <button id="reject-cookies" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg font-medium transition whitespace-nowrap">
-                    Rechazar
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ========================================== -->
-    <!-- JAVASCRIPT APP LOGIC                       -->
-    <!-- ========================================== -->
     <script>
-        // --- 1. SPA Navigation Logic ---
-        function navigate(pageId) {
-            // Hide all sections
-            document.querySelectorAll('.page-section').forEach(el => {
-                el.classList.remove('active');
-            });
-            // Show target section
-            document.getElementById(pageId).classList.add('active');
-            // Scroll to top
-            window.scrollTo(0, 0);
+        // Lógica de navegación SPA
+        function navigate(id) {
+            document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // --- 2. Smooth Scrolling for internal anchor links within Home ---
-        function scrollToSection(sectionId) {
-            const section = document.getElementById(sectionId);
-            if (section) {
-                // Offset for fixed header
-                const headerOffset = 80; 
-                const elementPosition = section.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: "smooth"
-                });
+        function scrollToSection(id) {
+            if (!document.getElementById('home').classList.contains('active')) {
+                navigate('home');
+                setTimeout(() => { 
+                    const element = document.getElementById(id);
+                    if(element) element.scrollIntoView({ behavior: 'smooth' }); 
+                }, 100);
+            } else {
+                const element = document.getElementById(id);
+                if(element) element.scrollIntoView({ behavior: 'smooth' });
             }
         }
 
-        // --- 3. Mobile Menu Toggle ---
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        // Menú móvil
+        const mobileBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
-        
-        function toggleMobileMenu() {
-            mobileMenu.classList.toggle('hidden');
+        function toggleMobileMenu() { mobileMenu.classList.toggle('hidden'); }
+        if (mobileBtn) mobileBtn.addEventListener('click', toggleMobileMenu);
+
+        // Lógica del botón flotante (FAB)
+        const mainFab = document.getElementById('main-fab');
+        const fabOptions = document.getElementById('fab-options');
+        if (mainFab) {
+            mainFab.addEventListener('click', () => {
+                fabOptions.classList.toggle('active');
+            });
         }
-        
-        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
-
-        // --- 4. Cookie Banner Logic ---
-        document.addEventListener("DOMContentLoaded", () => {
-            const cookieBanner = document.getElementById('cookie-banner');
-            const acceptBtn = document.getElementById('accept-cookies');
-            const rejectBtn = document.getElementById('reject-cookies');
-
-            // Check local storage
-            if (!localStorage.getItem('cookies_accepted')) {
-                // Show banner after short delay
-                setTimeout(() => {
-                    cookieBanner.classList.remove('translate-y-full');
-                }, 1000);
-            }
-
-            const hideBanner = () => {
-                cookieBanner.classList.add('translate-y-full');
-            };
-
-            acceptBtn.addEventListener('click', () => {
-                localStorage.setItem('cookies_accepted', 'true');
-                hideBanner();
-            });
-
-            rejectBtn.addEventListener('click', () => {
-                localStorage.setItem('cookies_accepted', 'false');
-                hideBanner();
-            });
-        });
     </script>
 </body>
 </html>
