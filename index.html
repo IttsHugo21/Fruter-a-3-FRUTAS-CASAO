@@ -21,6 +21,7 @@
                         'brand-green-dark': '#166534',
                         'brand-orange': '#f97316',
                         'brand-facebook': '#1877F2',
+                        'whatsapp-green': '#25D366',
                     },
                     fontFamily: {
                         sans: ['Poppins', 'sans-serif'],
@@ -178,6 +179,40 @@
                         <h3 class="text-xl font-bold mb-2">A domicilio</h3>
                         <p class="text-gray-600">Llevamos la frescura a tu puerta. Haz tu encargo por teléfono y nosotros nos encargamos.</p>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN DE PEDIDOS POR FORMULARIO (MÓVIL) -->
+        <section id="hacer-pedido" class="py-16 bg-brand-green/5">
+            <div class="max-w-3xl mx-auto px-4 sm:px-6">
+                <div class="bg-white rounded-3xl shadow-lg border border-brand-green/20 overflow-hidden">
+                    <div class="bg-brand-green-dark p-6 text-center text-white">
+                        <h2 class="text-2xl font-bold flex items-center justify-center gap-2">
+                            <i class="fab fa-whatsapp"></i> Haz tu Pedido al Móvil
+                        </h2>
+                        <p class="text-sm opacity-90 mt-1">Recibiremos tu lista directamente en nuestro móvil: 605 977 250</p>
+                    </div>
+                    <form id="form-whatsapp-pedido" class="p-8 space-y-5">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-1">Tu Nombre</label>
+                                <input type="text" id="pedido-nombre" required placeholder="Ej. Carmen Pérez" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-green focus:border-transparent outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-1">Dirección (Solo para domicilio)</label>
+                                <input type="text" id="pedido-direccion" placeholder="Calle, nº y piso" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-green focus:border-transparent outline-none">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-1">Lista de la compra</label>
+                            <textarea id="pedido-lista" rows="4" required placeholder="Ej: 2kg Naranjas, 1 manojo espárragos, 3 manzanas..." class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-green focus:border-transparent outline-none"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-whatsapp-green hover:bg-green-600 text-white font-bold py-4 rounded-xl transition shadow-md flex items-center justify-center gap-3 text-lg">
+                            <i class="fab fa-whatsapp text-2xl"></i> Enviar pedido por WhatsApp
+                        </button>
+                        <p class="text-center text-xs text-gray-500 italic">Al hacer clic se abrirá tu WhatsApp con el mensaje listo para enviar al 605 977 250.</p>
+                    </form>
                 </div>
             </div>
         </section>
@@ -466,6 +501,28 @@
         if (mainFab) {
             mainFab.addEventListener('click', () => {
                 fabOptions.classList.toggle('active');
+            });
+        }
+
+        // GESTIÓN DEL FORMULARIO HACIA WHATSAPP (MÓVIL 605 977 250)
+        const formPedido = document.getElementById('form-whatsapp-pedido');
+        if (formPedido) {
+            formPedido.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const nombre = document.getElementById('pedido-nombre').value;
+                const direccion = document.getElementById('pedido-direccion').value || "Recogida en tienda";
+                const lista = document.getElementById('pedido-lista').value;
+                const telefonoMovil = "34605977250"; // Código de país 34 + móvil
+                
+                const texto = `Hola Frutas Casao, me gustaría hacer un pedido:\n\n` +
+                              `👤 *Nombre:* ${nombre}\n` +
+                              `📍 *Dirección:* ${direccion}\n\n` +
+                              `🛒 *Lista de la compra:* \n${lista}\n\n` +
+                              `_Enviado desde la web_`;
+                
+                const url = `https://wa.me/${telefonoMovil}?text=${encodeURIComponent(texto)}`;
+                window.open(url, '_blank');
             });
         }
     </script>
